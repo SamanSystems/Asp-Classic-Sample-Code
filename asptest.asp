@@ -8,7 +8,7 @@ If Request.ServerVariables("REQUEST_METHOD") = "POST" Then
 Dim oSOAP 
     Set oSOAP = Server.CreateObject("MSSOAP.SoapClient")
     oSOAP.ClientProperty("ServerHTTPRequest") = True
-    oSOAP.mssoapinit("http://www.zarinpal.com/WebserviceGateway/wsdl")
+    oSOAP.mssoapinit("https://www.zarinpal.com/pg/services/WebGate/wsdl")
     
     
 	Dim orderId
@@ -20,14 +20,14 @@ Dim oSOAP
     Dim authority
 	Dim desc
 	
-	desc = Server.URLEncode("سفارش شماره: " &  orderId);
+	desc = "سفارش شماره: " &  orderId;
     
 	authority = 0
 
     CALL oSOAP.PaymentRequest( "YOUR MERCHENT CODE", amount, "http://www.yoursite.com/callbackpage.asp", desc, authority)
     
     IF Len(authority) = 36 THEN
-		Response.Redirect( "https://www.zarinpal.com/users/pay_invoice/" & authority )     
+		Response.Redirect( "https://www.zarinpal.com/pg/StartPay/" & authority )     
     End IF
 End If
 %>
